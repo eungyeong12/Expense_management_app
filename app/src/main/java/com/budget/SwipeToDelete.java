@@ -72,7 +72,7 @@ public class SwipeToDelete {
                                                             .collection("date").document(deleteItem.getDate())
                                                             .collection("monthlyInfo").document(deleteItem.getDate()).set(monthlyInfo);
                                                 } else {
-                                                    MonthlyInfo monthlyInfo = new MonthlyInfo(0,0,0,0,0,0,0,0,0,0,0);
+                                                    MonthlyInfo monthlyInfo = new MonthlyInfo(-1,0,0,0,0,0,0,0,0,0,0);
                                                     monthlyInfo.setTotal(Integer.parseInt(deleteItem.getExpenditure().replace(",","")));
                                                     util.calCategory3(monthlyInfo, deleteItem);
                                                     db.collection("users").document(currentUser.getUid())

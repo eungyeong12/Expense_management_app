@@ -156,7 +156,7 @@ public class Util {
                         goalText.setText("");
                     }
                 } else {
-                    new MonthlyInfo(0,0,0,0,0,0,0,0,0,0,0);
+                    new MonthlyInfo(-1,0,0,0,0,0,0,0,0,0,0);
                     goalText.setText("");
                 }
             }

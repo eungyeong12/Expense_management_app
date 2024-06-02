@@ -125,7 +125,7 @@ public class GoalHandler extends Dialog {
                             .collection("date").document(date.getText().toString())
                             .collection("monthlyInfo").document(date.getText().toString()).set(monthlyInfo);
                 } else {
-                    MonthlyInfo monthlyInfo = new MonthlyInfo(0,0,0,0,0,0,0,0,0,0,0);
+                    MonthlyInfo monthlyInfo = new MonthlyInfo(-1,0,0,0,0,0,0,0,0,0,0);
                     monthlyInfo.setGoal(Integer.parseInt(g.replace(",","")));
                     db.collection("users").document(currentUser.getUid())
                             .collection("date").document(date.getText().toString())

@@ -136,7 +136,7 @@ public class Sorting {
                                         MonthlyInfo monthlyInfo = value.toObject(MonthlyInfo.class);
                                         setTotal(monthlyInfo, category);
                                     } else {
-                                        MonthlyInfo monthlyInfo = new MonthlyInfo(0,0,0,0,0,0,0,0,0,0,0);
+                                        MonthlyInfo monthlyInfo = new MonthlyInfo(-1,0,0,0,0,0,0,0,0,0,0);
                                         setTotal(monthlyInfo, category);
                                     }
                                 }

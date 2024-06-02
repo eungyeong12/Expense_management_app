@@ -271,7 +271,7 @@ public class ItemHandler extends Dialog {
                                     .collection("date").document(d)
                                     .collection("monthlyInfo").document(d).set(monthlyInfo);
                         } else {
-                            MonthlyInfo monthlyInfo = new MonthlyInfo(0,0,0,0,0,0,0,0,0,0,0);
+                            MonthlyInfo monthlyInfo = new MonthlyInfo(-1,0,0,0,0,0,0,0,0,0,0);
                             monthlyInfo.setTotal(Integer.parseInt(price.replace(",","")));
                             util.calCategory3(monthlyInfo, item);
                             db.collection("users").document(currentUser.getUid())
@@ -301,7 +301,7 @@ public class ItemHandler extends Dialog {
                                 .collection("date").document(d)
                                 .collection("monthlyInfo").document(d).set(monthlyInfo);
                     } else {
-                        MonthlyInfo monthlyInfo = new MonthlyInfo(0,0,0,0,0,0,0,0,0,0,0);
+                        MonthlyInfo monthlyInfo = new MonthlyInfo(-1,0,0,0,0,0,0,0,0,0,0);
                         monthlyInfo.setTotal(Integer.parseInt(price.replace(",","")));
                         util.calCategory3(monthlyInfo, item);
                         db.collection("users").document(currentUser.getUid())
