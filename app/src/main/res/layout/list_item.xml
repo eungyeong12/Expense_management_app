@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border"
+    android:paddingTop="35px"
+    android:paddingBottom="35px">
+
+    <TextView
+        android:id="@+id/item_date"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20px"
+        android:text="03.15" />
+
+    <TextView
+        android:id="@+id/item_category"
+        android:layout_width="75dp"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text="카테고리"
+        android:textColor="#1E1E1E"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/item_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLength="8"
+        android:maxLines="1"
+        android:text="내용"
+        android:textColor="#1E1E1E"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/item_expenditure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="가격"
+        android:textColor="#1E1E1E"
+        android:textSize="15sp" />
+
+</LinearLayout>

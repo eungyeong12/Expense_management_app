@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <string-array name="category">
+        <item>선택</item>
+        <item>식비</item>
+        <item>생활비</item>
+        <item>교통비</item>
+        <item>패션/쇼핑</item>
+        <item>뷰티/미용</item>
+        <item>문화/여가</item>
+        <item>의료/건강</item>
+        <item>교육/학습</item>
+        <item>기타</item>
+    </string-array>
+    <string-array name="category2">
+        <item>전체</item>
+        <item>식비</item>
+        <item>생활비</item>
+        <item>교통비</item>
+        <item>패션/쇼핑</item>
+        <item>뷰티/미용</item>
+        <item>문화/여가</item>
+        <item>의료/건강</item>
+        <item>교육/학습</item>
+        <item>기타</item>
+    </string-array>
+    <string-array name="month">
+        <item>1월</item>
+        <item>2월</item>
+        <item>3월</item>
+        <item>4월</item>
+        <item>5월</item>
+        <item>6월</item>
+        <item>7월</item>
+        <item>8월</item>
+        <item>9월</item>
+        <item>10월</item>
+        <item>11월</item>
+        <item>12월</item>
+    </string-array>
+</resources>
