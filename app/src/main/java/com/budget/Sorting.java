@@ -11,11 +11,14 @@ import static com.budget.MainActivity.total;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -33,16 +36,18 @@ import java.util.Comparator;
 public class Sorting {
     private Context context;
     private Util util = new Util();
+    private GoalHandler goalHandler;
 
     Sorting(Context context) {
         this.context = context;
+        goalHandler = new GoalHandler(context);
     }
 
     public void list() {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         if (currentUser != null) {
-            util.getGoal();
+            goalHandler.getGoal();
             db.collection("users")
                     .document(mAuth.getCurrentUser().getUid())
                     .collection("date")
@@ -79,9 +84,15 @@ public class Sorting {
                                         MonthlyInfo exist = value.toObject(MonthlyInfo.class);
                                         total.setText(util.format(exist.getTotal()) + "원");
                                     } else {
-                                        MonthlyInfo monthlyInfo = new MonthlyInfo(0,0,0,0,0,0,0,0,0,0,0);
+                                        MonthlyInfo monthlyInfo = new MonthlyInfo(-1,0,0,0,0,0,0,0,0,0,0);
                                         total.setText(util.format(monthlyInfo.getTotal()) + "원");
                                     }
+                                }
+                            });
+                            docRef.get().addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(context, "지출 목록을 가져오지 못했습니다", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
@@ -93,7 +104,7 @@ public class Sorting {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         if(currentUser != null) {
-            util.getGoal();
+            goalHandler.getGoal();
             db.collection("users")
                     .document(mAuth.getCurrentUser().getUid())
                     .collection("date")

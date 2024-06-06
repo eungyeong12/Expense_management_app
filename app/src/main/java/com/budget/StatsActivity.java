@@ -40,41 +40,60 @@ public class StatsActivity extends AppCompatActivity {
         date2.setText(util.getTime2());
         date3.setText(util.getTime());
 
-        new com.budget.BarChart(barChart, date2);
-        new com.budget.PieChart(pieChart, date3);
+        setStats();
+        setBackButtonClick(back);
+        setPreviousYearButtonClick(left2);
+        setNextYearButtonClick(right2);
+        setPreviousMonthButtonClick(left3);
+        setNextMonthButtonClick(right3);
+    }
 
+    private void setStats() {
+        new com.budget.BarChart(barChart, date2, StatsActivity.this);
+        new com.budget.PieChart(pieChart, date3, StatsActivity.this);
+    }
+
+    private void setPreviousYearButtonClick(ImageView left2) {
         left2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 date2.setText(util.getLastYear(date2));
-                new com.budget.BarChart(barChart, date2);
+                new com.budget.BarChart(barChart, date2, StatsActivity.this);
             }
         });
+    }
 
+    private void setNextYearButtonClick(ImageView right2) {
         right2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 date2.setText(util.getNextYear(date2));
-                new com.budget.BarChart(barChart, date2);
+                new com.budget.BarChart(barChart, date2, StatsActivity.this);
             }
         });
+    }
 
+    private void setPreviousMonthButtonClick(ImageView left3) {
         left3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 date3.setText(util.getLastMonth(date3));
-                new com.budget.PieChart(pieChart, date3);
+                new com.budget.PieChart(pieChart, date3, StatsActivity.this);
             }
         });
+    }
 
+    private void setNextMonthButtonClick(ImageView right3) {
         right3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 date3.setText(util.getNextMonth(date3));
-                new com.budget.PieChart(pieChart, date3);new com.budget.PieChart(pieChart, date3);
+                new com.budget.PieChart(pieChart, date3, StatsActivity.this);
             }
         });
+    }
 
+    private void setBackButtonClick(ImageView back) {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

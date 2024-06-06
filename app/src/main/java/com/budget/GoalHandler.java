@@ -3,6 +3,7 @@ package com.budget;
 import static com.budget.MainActivity.currentUser;
 import static com.budget.MainActivity.date;
 import static com.budget.MainActivity.db;
+import static com.budget.MainActivity.goalText;
 import static com.budget.MainActivity.mAuth;
 
 import android.app.Dialog;
@@ -16,11 +17,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class GoalHandler extends Dialog {
     private Context context;
@@ -102,6 +107,11 @@ public class GoalHandler extends Dialog {
                     }
                 }
             }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                toast("지출 목표를 가져오지 못했습니다");
+            }
         });
     }
 
@@ -132,7 +142,13 @@ public class GoalHandler extends Dialog {
                             .collection("monthlyInfo").document(date.getText().toString()).set(monthlyInfo);
                 }
             }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                toast("지출 목표를 저장하지 못했습니다");
+            }
         });
+        getGoal();
     }
 
     private void deleteGoal() {
@@ -154,8 +170,40 @@ public class GoalHandler extends Dialog {
                             .collection("monthlyInfo").document(date.getText().toString()).set(monthlyInfo);
                 }
             }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                toast("지출 목표를 삭제하지 못했습니다");
+            }
+        });
+        getGoal();
+    }
+
+    public void getGoal() {
+        DocumentReference docRef = db.collection("users")
+                .document(mAuth.getCurrentUser().getUid())
+                .collection("date")
+                .document(date.getText().toString())
+                .collection("monthlyInfo")
+                .document(date.getText().toString());
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(value.exists()) {
+                    MonthlyInfo monthlyInfo = value.toObject(MonthlyInfo.class);
+                    if(monthlyInfo.getGoal() != -1) {
+                        goalText.setText(util.format(monthlyInfo.getGoal()) + "원");
+                    } else {
+                        goalText.setText("");
+                    }
+                } else {
+                    new MonthlyInfo(-1,0,0,0,0,0,0,0,0,0,0);
+                    goalText.setText("");
+                }
+            }
         });
     }
+
     private void toast(String msg) {
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }

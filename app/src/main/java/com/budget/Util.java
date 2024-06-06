@@ -1,23 +1,10 @@
 package com.budget;
 
-import static com.budget.MainActivity.date;
-import static com.budget.MainActivity.db;
-import static com.budget.MainActivity.goalText;
-import static com.budget.MainActivity.mAuth;
-
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.Nullable;
-
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -136,31 +123,6 @@ public class Util {
             default:
                 break;
         }
-    }
-
-    public void getGoal() {
-        DocumentReference docRef = db.collection("users")
-                .document(mAuth.getCurrentUser().getUid())
-                .collection("date")
-                .document(date.getText().toString())
-                .collection("monthlyInfo")
-                .document(date.getText().toString());
-        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                if(value.exists()) {
-                    MonthlyInfo monthlyInfo = value.toObject(MonthlyInfo.class);
-                    if(monthlyInfo.getGoal() != -1) {
-                        goalText.setText(format(monthlyInfo.getGoal()) + "원");
-                    } else {
-                        goalText.setText("");
-                    }
-                } else {
-                    new MonthlyInfo(-1,0,0,0,0,0,0,0,0,0,0);
-                    goalText.setText("");
-                }
-            }
-        });
     }
 
     public TextWatcher textWatcher(EditText editText) {

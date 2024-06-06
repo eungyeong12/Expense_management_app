@@ -3,12 +3,17 @@ package com.budget;
 import static com.budget.MainActivity.db;
 import static com.budget.MainActivity.mAuth;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -18,6 +23,7 @@ import java.util.ArrayList;
 public class PieChart {
     private com.github.mikephil.charting.charts.PieChart pieChart;
     private TextView date3;
+    private Context context;
 
     private int[] colorArray = new int[] {
             Color.parseColor("#9CCC65"), Color.parseColor("#26C6DA"), Color.parseColor("#7E57C2"),
@@ -25,9 +31,10 @@ public class PieChart {
             Color.parseColor("#FFCA28"), Color.parseColor("#78909C"), Color.parseColor("#BDBDBD")
     };
 
-    PieChart(com.github.mikephil.charting.charts.PieChart pieChart, TextView date3) {
+    PieChart(com.github.mikephil.charting.charts.PieChart pieChart, TextView date3, Context context) {
         this.pieChart = pieChart;
         this.date3 = date3;
+        this.context = context;
         makePieChart();
     }
 
@@ -86,6 +93,11 @@ public class PieChart {
                         drawPieChart(entries);
                     }
                 }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(context, "지출 금액을 가져오지 못했습니다", Toast.LENGTH_SHORT).show();
             }
         });
     }

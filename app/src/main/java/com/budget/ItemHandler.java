@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -185,6 +186,11 @@ public class ItemHandler extends Dialog {
                             .collection("monthlyInfo").document(updateItem.getDate()).set(monthlyInfo);
                 }
             }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                toast("지출 내역을 삭제하지 못했습니다");
+            }
         });
     }
 
@@ -228,7 +234,13 @@ public class ItemHandler extends Dialog {
                             db.collection("users").document(currentUser.getUid())
                                     .collection("date").document(updateItem.getDate())
                                     .collection("monthlyInfo").document(updateItem.getDate()).set(monthlyInfo);
+                            toast("수정되었습니다");
                         }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        toast("지출 내역을 수정하지 못했습니다");
                     }
                 });
             } else {
@@ -278,6 +290,12 @@ public class ItemHandler extends Dialog {
                                     .collection("date").document(d)
                                     .collection("monthlyInfo").document(d).set(monthlyInfo);
                         }
+                        toast("수정되었습니다");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        toast("지출 내역을 수정하지 못했습니다");
                     }
                 });
             }
@@ -309,9 +327,13 @@ public class ItemHandler extends Dialog {
                                 .collection("monthlyInfo").document(d).set(monthlyInfo);
                     }
                 }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    toast("지출 내역을 저장하지 못했습니다");
+                }
             });
         }
-
         editContent.setText("");
         editPrice.setText("");
         spinner.setSelection(0);

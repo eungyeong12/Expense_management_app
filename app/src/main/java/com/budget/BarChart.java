@@ -3,8 +3,13 @@ package com.budget;
 import static com.budget.MainActivity.db;
 import static com.budget.MainActivity.mAuth;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
@@ -13,6 +18,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -22,9 +28,11 @@ import java.util.ArrayList;
 public class BarChart {
     private com.github.mikephil.charting.charts.BarChart barChart;
     private TextView date2;
-    BarChart(com.github.mikephil.charting.charts.BarChart barChart, TextView date2) {
+    private Context context;
+    BarChart(com.github.mikephil.charting.charts.BarChart barChart, TextView date2, Context context) {
         this.barChart = barChart;
         this.date2 = date2;
+        this.context = context;
         makeBarChart();
     }
 
@@ -93,6 +101,11 @@ public class BarChart {
                         barChart.invalidate();
                         barChart.setTouchEnabled(false);
                     }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(context, "지출 금액을 가져오지 못했습니다", Toast.LENGTH_SHORT).show();
                 }
             });
         }
