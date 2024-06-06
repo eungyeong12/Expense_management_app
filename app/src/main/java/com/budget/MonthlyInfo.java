@@ -60,7 +60,7 @@ public class MonthlyInfo {
     }
 
     public void setLiving_expenses(int living_expenses) {
-        living_expenses = living_expenses;
+        this.living_expenses = living_expenses;
     }
 
     public int getTransportation_expenses() {
