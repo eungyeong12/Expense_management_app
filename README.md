@@ -21,7 +21,7 @@
 </p>
 
 ### 개발 기간
-24.02.26 ~ 24.05.24
+24.02.26 ~ 24.07.06
 
 ### 개발 환경
 ![Java](https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=openJDK&logoColor=white) ![Android Studio](https://img.shields.io/badge/Android%20Studio-3DDC84.svg?&style=for-the-badge&logo=Android%20Studio&logoColor=white) ![Firebase](https://img.shields.io/badge/Firebase-FFCA28.svg?&style=for-the-badge&logo=Firebase&logoColor=white)
